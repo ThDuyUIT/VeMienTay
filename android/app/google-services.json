@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "957626042083",
+    "firebase_url": "https://vemientay-6c26c-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "vemientay-6c26c",
+    "storage_bucket": "vemientay-6c26c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957626042083:android:3f1ff463aaacf2e76167d6",
+        "android_client_info": {
+          "package_name": "com.example.booking_transition_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "957626042083-iv2fn1g1mg48007rnu6qvms046ieqlp1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMO5FNTS-vLqrcv2JaQk0SGQ1Bok_jLYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "957626042083-iv2fn1g1mg48007rnu6qvms046ieqlp1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
