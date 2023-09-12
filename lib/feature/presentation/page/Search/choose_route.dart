@@ -50,10 +50,12 @@ class ChooseRoute extends StatelessWidget {
                       const SizedBox(
                         width: 5,
                       ),
-                      Text(
-                        'From: ${StateFindRoute.startCity?.nameCity}',
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 16),
+                      Expanded(
+                        child: Text(
+                          'From: ${StateFindRoute.startCity?.nameCity}',
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 16),
+                        ),
                       )
                     ],
                   ),
@@ -70,9 +72,11 @@ class ChooseRoute extends StatelessWidget {
                       const SizedBox(
                         width: 5,
                       ),
-                      Text('To: ${StateFindRoute.endCity?.nameCity}',
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 16))
+                      Expanded(
+                        child: Text('To: ${StateFindRoute.endCity?.nameCity}',
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 16)),
+                      )
                     ],
                   )
                 ],

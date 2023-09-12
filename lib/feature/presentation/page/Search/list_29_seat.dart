@@ -110,7 +110,7 @@ class StateList29Seats extends State<List29Seats> {
             ],
           ),
           const SizedBox(
-            width: 10,
+            width: 8,
           ),
           Expanded(
             child: ListView(

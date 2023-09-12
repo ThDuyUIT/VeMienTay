@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:booking_transition_flutter/core/utils/colors.dart';
 import 'package:booking_transition_flutter/feature/presentation/page/Search/choose_route.dart';
 import 'package:booking_transition_flutter/feature/presentation/page/Search/confirm_booking.dart';

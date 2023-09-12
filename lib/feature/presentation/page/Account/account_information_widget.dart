@@ -66,7 +66,7 @@ class StateAccountInformation extends State<AccountInformationWidget> {
                       top: Radius.circular(20),
                     )),
                 child: Padding(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.only(left: 10, right: 10, top: 10),
                   child: Column(
                     children: [
                       Row(
@@ -205,7 +205,7 @@ class StateAccountInformation extends State<AccountInformationWidget> {
                         ],
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Container(
                           height: 50,
@@ -253,7 +253,7 @@ class StateAccountInformation extends State<AccountInformationWidget> {
                             ],
                           )),
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Container(
                           height: 50,
@@ -301,7 +301,7 @@ class StateAccountInformation extends State<AccountInformationWidget> {
                             ],
                           )),
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       SizedBox(
                         width: double.infinity,
@@ -322,9 +322,9 @@ class StateAccountInformation extends State<AccountInformationWidget> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
+                      // const SizedBox(
+                      //   height: 8,
+                      // ),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton.icon(
