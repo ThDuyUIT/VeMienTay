@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:booking_transition_flutter/core/component/snackbar.dart';
 import 'package:booking_transition_flutter/feature/models/account_information.dart';
+import 'package:booking_transition_flutter/feature/presentation/page/Account/myaccount.dart';
 import 'package:booking_transition_flutter/feature/presentation/page/Authentication/login.dart';
 import 'package:booking_transition_flutter/feature/services/insert_data_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -38,6 +41,37 @@ class SignUpController {
       }
     } catch (e) {
       _appSnackbar.buildSnackbar(context, e.toString());
+    }
+  }
+
+  Future onCreateAccount(
+      String username, String pass, BuildContext context) async {
+    final _appSnackbar = AppSnackbar();
+    String uid = '';
+    try {
+      UserCredential newUser = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: username, password: pass);
+
+      if (newUser.user?.uid != null) {
+        uid = newUser.user!.uid;
+      }
+    } catch (e) {
+      _appSnackbar.buildSnackbar(context, e.toString());
+    }
+    return uid;
+  }
+
+  Future onCreateInfoAccount(
+      AccountInformation newAcc, String uid, BuildContext context) async {
+    final _appSnackbar = AppSnackbar();
+    final insertedInfo =
+        await InsertDataService.insertAccountInformation(newAcc, uid);
+    if (insertedInfo) {
+      _appSnackbar.buildSnackbar(
+          context, "Register successfully, Let\'s login now!");
+      Get.offAll(Login());
+    } else {
+      _appSnackbar.buildSnackbar(context, "Register fail");
     }
   }
 }

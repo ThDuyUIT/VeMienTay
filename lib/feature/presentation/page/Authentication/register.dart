@@ -1,10 +1,33 @@
+import 'dart:async';
+
 import 'package:booking_transition_flutter/core/component/snackbar.dart';
 import 'package:booking_transition_flutter/core/utils/colors.dart';
 import 'package:booking_transition_flutter/feature/controller/sign_up_controller.dart';
+import 'package:booking_transition_flutter/feature/models/account_information.dart';
+import 'package:booking_transition_flutter/feature/presentation/page/Authentication/verify.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return StateRegister();
+  }
+}
+
+class StateRegister extends State<Register> {
+  static late bool isVerified;
+  Timer? timer;
+  Future checkVerifiedEmail() async {
+    await FirebaseAuth.instance.currentUser?.reload();
+    setState(() {
+      isVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+    });
+
+    if (isVerified) timer?.cancel();
+  }
+
   @override
   Widget build(BuildContext context) {
     final _fullnameEditingController = TextEditingController();
@@ -262,13 +285,69 @@ class Register extends StatelessWidget {
                                         ),
                                       );
                                     });
-                                await _signUpController.onRegister(
-                                    _fullnameEditingController.text,
-                                    _phoneNumsEditingController.text,
-                                    _usernameEditingController.text.trim(),
-                                    _passwordEditingController.text.trim(),
-                                    context);
+
+                                // await _signUpController.onRegister(
+                                //     _fullnameEditingController.text,
+                                //     _phoneNumsEditingController.text,
+                                //     _usernameEditingController.text.trim(),
+                                //     _passwordEditingController.text.trim(),
+                                //     context);
+
+                                String uid =
+                                    await _signUpController.onCreateAccount(
+                                        _usernameEditingController.text.trim(),
+                                        _passwordEditingController.text.trim(),
+                                        context);
                                 Navigator.of(context).pop();
+
+                                if (uid != '') {
+                                  AccountInformation accountInformation =
+                                      AccountInformation(
+                                          fullName:
+                                              _fullnameEditingController.text,
+                                          gender: 'Unknow',
+                                          mail: _usernameEditingController.text
+                                              .trim(),
+                                          phoneNumbers:
+                                              _phoneNumsEditingController.text,
+                                          avatarUrl: 'Unknow');
+
+                                  Get.to(VerifyEmail(
+                                    accountInformation: accountInformation,
+                                    uid: uid,
+                                  ));
+                                  //   // isVerified = FirebaseAuth
+                                  //   //     .instance.currentUser!.emailVerified;
+
+                                  //   // if (!isVerified) {
+                                  //   //   await FirebaseAuth.instance.currentUser
+                                  //   //       ?.sendEmailVerification();
+
+                                  //   //   timer = Timer.periodic(
+                                  //   //       const Duration(minutes: 2), (_) {
+                                  //   //     checkVerifiedEmail();
+                                  //   //   });
+                                  //   // } else {
+                                  //   //   AccountInformation newAcc =
+                                  //   //       AccountInformation(
+                                  //   //           fullName:
+                                  //   //               _fullnameEditingController.text,
+                                  //   //           gender: 'Unknow',
+                                  //   //           mail: _usernameEditingController
+                                  //   //               .text
+                                  //   //               .trim(),
+                                  //   //           phoneNumbers:
+                                  //   //               _phoneNumsEditingController
+                                  //   //                   .text,
+                                  //   //           avatarUrl: 'Unknow');
+
+                                  //   //   await _signUpController.onCreateInfoAccount(
+                                  //   //       newAcc, uid, context);
+                                  //   // }
+                                }
+
+                                // isVerified = FirebaseAuth
+                                //     .instance.currentUser!.emailVerified;
                               } else {
                                 print('verify fail');
                               }

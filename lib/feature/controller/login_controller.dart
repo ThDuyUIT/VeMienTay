@@ -28,6 +28,12 @@ class LoginController {
       final accountInformation =
           await GetDataService.fetchAccountInformation(userId);
 
+      if (accountInformation.fullName == '') {
+        _appSnackbar.buildSnackbar(
+            context, 'Username or Password is incorrect');
+        return;
+      }
+
       accountoController.setAccountInfo(accountInformation);
       accountoController.setUid(userId);
 
@@ -39,6 +45,7 @@ class LoginController {
       } else {
         print(previousPage);
         AppHeaderDrawer();
+
         if ((previousPage == '/Search' && ChooseRoute.routes.isEmpty) ||
             previousPage == '/Login' ||
             previousPage == '/') {
