@@ -19,6 +19,6 @@ Hiện nay với sư phổ biến của thiết bị di động thông minh, cá
 ![DataBase](https://firebasestorage.googleapis.com/v0/b/booking-transition.appspot.com/o/DB.png?alt=media&token=18cfefab-aa63-4329-8900-d3b1908c76bb)
 
 # 5-Một số giao diện chính
-
+https://www.figma.com/file/HejFQiAdHQuGA5wVSsu18J/UI-VeMienTay?type=design&node-id=0%3A1&mode=design&t=uqAIFz5v4jEULdRx-1
 # 6-Một số thông tin khác
 - Chạy trên Xiaomi Note 5 (thiết bị thật) và Pixel 3a XL
