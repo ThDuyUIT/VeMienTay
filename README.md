@@ -16,7 +16,7 @@ Hiện nay với sư phổ biến của thiết bị di động thông minh, cá
 - Cập nhật thông tin tài khoản
 
 # 4-Tổng quan CSDL
-![Database](https://firebasestorage.googleapis.com/v0/b/booking-transition.appspot.com/o/DB.png?alt=media&token=18cfefab-aa63-4329-8900-d3b1908c76bb)
+![DataBase](https://firebasestorage.googleapis.com/v0/b/booking-transition.appspot.com/o/DB.png?alt=media&token=18cfefab-aa63-4329-8900-d3b1908c76bb)
 
 # 5-Một số giao diện chính
 
