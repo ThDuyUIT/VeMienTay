@@ -16,7 +16,7 @@ Hiện nay với sư phổ biến của thiết bị di động thông minh, cá
 - Cập nhật thông tin tài khoản
 
 # 4-Tổng quan CSDL
-![Database](https://drive.google.com/file/d/10z0mAHAugsEM5Vtog7QYQbBR0A0ZjMbM/view?usp=sharing)
+![Database](https://drive.google.com/file/d/10z0mAHAugsEM5Vtog7QYQbBR0A0ZjMbM)
 
 # 5-Một số giao diện chính
 
