@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:booking_transition_flutter/core/component/snackbar.dart';
+import 'package:booking_transition_flutter/core/utils/colors.dart';
 import 'package:booking_transition_flutter/feature/models/account_information.dart';
 import 'package:booking_transition_flutter/feature/presentation/page/Account/myaccount.dart';
 import 'package:booking_transition_flutter/feature/presentation/page/Authentication/login.dart';
@@ -33,14 +34,19 @@ class SignUpController {
 
         if (insertedInfo) {
           _appSnackbar.buildSnackbar(
-              context, "Register successfully, Let\'s login now!");
+              context,
+              "Register successfully, Let\'s login now!",
+              AppColor.mainColor,
+              Colors.white);
           Get.back();
         } else {
-          _appSnackbar.buildSnackbar(context, "Register fail");
+          _appSnackbar.buildSnackbar(
+              context, "Register fail", AppColor.mainColor, Colors.white);
         }
       }
     } catch (e) {
-      _appSnackbar.buildSnackbar(context, e.toString());
+      _appSnackbar.buildSnackbar(
+          context, e.toString(), AppColor.mainColor, Colors.white);
     }
   }
 
@@ -56,7 +62,8 @@ class SignUpController {
         uid = newUser.user!.uid;
       }
     } catch (e) {
-      _appSnackbar.buildSnackbar(context, e.toString());
+      _appSnackbar.buildSnackbar(
+          context, e.toString(), AppColor.mainColor, Colors.white);
     }
     return uid;
   }
@@ -68,10 +75,14 @@ class SignUpController {
         await InsertDataService.insertAccountInformation(newAcc, uid);
     if (insertedInfo) {
       _appSnackbar.buildSnackbar(
-          context, "Register successfully, Let\'s login now!");
+          context,
+          "Register successfully, Let\'s login now!",
+          AppColor.mainColor,
+          Colors.white);
       Get.offAll(Login());
     } else {
-      _appSnackbar.buildSnackbar(context, "Register fail");
+      _appSnackbar.buildSnackbar(
+          context, "Register fail", AppColor.mainColor, Colors.white);
     }
   }
 }

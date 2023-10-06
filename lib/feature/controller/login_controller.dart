@@ -29,8 +29,8 @@ class LoginController {
           await GetDataService.fetchAccountInformation(userId);
 
       if (accountInformation.fullName == '') {
-        _appSnackbar.buildSnackbar(
-            context, 'Username or Password is incorrect');
+        _appSnackbar.buildSnackbar(context, 'Username or Password is incorrect',
+            AppColor.mainColor, Colors.redAccent);
         return;
       }
 
@@ -40,7 +40,8 @@ class LoginController {
       String previousPage = Get.previousRoute;
 
       if (previousPage == '/MyTicket') {
-        _appSnackbar.buildSnackbar(context, "Login successfully!");
+        _appSnackbar.buildSnackbar(
+            context, "Login successfully!", Colors.white, AppColor.mainColor);
         Get.offAll(MyTicket());
       } else {
         print(previousPage);
@@ -49,16 +50,19 @@ class LoginController {
         if ((previousPage == '/Search' && ChooseRoute.routes.isEmpty) ||
             previousPage == '/Login' ||
             previousPage == '/') {
-          _appSnackbar.buildSnackbar(context, "Login successfully!");
+          _appSnackbar.buildSnackbar(
+              context, "Login successfully!", Colors.white, AppColor.mainColor);
           Get.offAll(MyAccount());
         } else {
-          _appSnackbar.buildSnackbar(context, "Login successfully!");
+          _appSnackbar.buildSnackbar(
+              context, "Login successfully!", Colors.white, AppColor.mainColor);
           //print('err is here');
           Get.back();
         }
       }
     } catch (e) {
-      _appSnackbar.buildSnackbar(context, 'Username or Password is incorrect');
+      _appSnackbar.buildSnackbar(context, 'Username or Password is incorrect',
+          AppColor.mainColor, Colors.redAccent);
     }
   }
 
@@ -109,23 +113,27 @@ class LoginController {
         accountoController.setUid(uid);
 
         if (previousPage == '/MyTicket') {
-          _appSnackbar.buildSnackbar(context, "Login successfully!");
+          _appSnackbar.buildSnackbar(
+              context, "Login successfully!", Colors.white, AppColor.mainColor);
           Get.offAll(MyTicket());
         } else {
           AppHeaderDrawer();
           if ((previousPage == '/Search' && ChooseRoute.routes.isEmpty) ||
               previousPage == '/Login' ||
               previousPage == '/') {
-            _appSnackbar.buildSnackbar(context, "Login successfully!");
+            _appSnackbar.buildSnackbar(context, "Login successfully!",
+                Colors.white, AppColor.mainColor);
             Get.offAll(MyAccount());
           } else {
-            _appSnackbar.buildSnackbar(context, "Login successfully!");
+            _appSnackbar.buildSnackbar(context, "Login successfully!",
+                Colors.white, AppColor.mainColor);
             Get.back();
           }
         }
       }
     } catch (e) {
-      _appSnackbar.buildSnackbar(context, "Can\'t login with Google!");
+      _appSnackbar.buildSnackbar(context, "Can\'t login with Google!",
+          AppColor.mainColor, Colors.redAccent);
     }
   }
 }

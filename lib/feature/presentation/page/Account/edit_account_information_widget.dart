@@ -6,6 +6,7 @@ import 'package:booking_transition_flutter/feature/controller/account_controller
 import 'package:booking_transition_flutter/feature/controller/update_account_controller.dart';
 import 'package:booking_transition_flutter/feature/models/account_information.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 
@@ -66,350 +67,365 @@ class StateEditAccountInformaion extends State<EditAccountInformaion> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: AppColor.mainColor),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            children: [
-              Container(
-                //padding: EdgeInsets.only(top: 20),
-                child: GestureDetector(
-                  onTap: () async {
-                    setState(() {
-                      isClickAvatar = true;
-                    });
-                    // String? pickedImagePath =
-                    //     await UpdateAccountController().pickAvatar();
-                    // if (pickedImagePath != null) {
-                    //   setState(() {
-                    //     imageFile = File(pickedImagePath);
-                    //   });
-                    // }
-                  },
-                  child: CircleAvatar(
-                    backgroundImage:
-                        accountController.accountInformation?.avatarUrl !=
-                                    'Unknow' &&
-                                imageFile == null
-                            ? NetworkImage(
-                                accountController.accountInformation!.avatarUrl)
-                            : imageFile != null
-                                ? FileImage(imageFile!)
-                                : const AssetImage('assets/images/avatar.png')
-                                    as ImageProvider,
-                    maxRadius: 100,
-                  ),
+      body: Container(
+        child: Column(
+          children: [
+            Container(
+              //padding: EdgeInsets.only(top: 20),
+              child: GestureDetector(
+                onTap: () async {
+                  setState(() {
+                    isClickAvatar = true;
+                  });
+                  // String? pickedImagePath =
+                  //     await UpdateAccountController().pickAvatar();
+                  // if (pickedImagePath != null) {
+                  //   setState(() {
+                  //     imageFile = File(pickedImagePath);
+                  //   });
+                  // }
+                },
+                child: CircleAvatar(
+                  backgroundImage:
+                      accountController.accountInformation?.avatarUrl !=
+                                  'Unknow' &&
+                              imageFile == null
+                          ? NetworkImage(
+                              accountController.accountInformation!.avatarUrl)
+                          : imageFile != null
+                              ? FileImage(imageFile!)
+                              : const AssetImage('assets/images/avatar.png')
+                                  as ImageProvider,
+                  maxRadius: 100,
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                height: 540,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Expanded(
+              child: Container(
+                //height: 540,
                 decoration: BoxDecoration(
                     color: AppColor.mainColor,
                     borderRadius:
                         const BorderRadius.vertical(top: Radius.circular(10))),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10.0, right: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextField(
-                        controller: _fullnameController,
-                        decoration: InputDecoration(
-                          hintText: 'Edit your full name',
-                          hintStyle: TextStyle(color: Colors.white),
-                          //icon: const Icon(Icons.account_circle_outlined),
-                          label: const Text(
-                            'Full name',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            // Change the default border color
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: const BorderSide(
-                                color: Colors.white,
-                                width: 2), // Change color and width
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextField(
+                          controller: _fullnameController,
+                          decoration: InputDecoration(
+                            hintText: 'Edit your full name',
+                            hintStyle: TextStyle(color: Colors.white),
+                            //icon: const Icon(Icons.account_circle_outlined),
+                            label: const Text(
+                              'Full name',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              // Change the default border color
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: const BorderSide(
+                                  color: Colors.white,
+                                  width: 2), // Change color and width
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextField(
-                        controller: _phonenumsController,
-                        decoration: InputDecoration(
-                          hintText: 'Edit your phone numbers',
-                          hintStyle: const TextStyle(color: Colors.white),
-                          //icon: const Icon(Icons.account_circle_outlined),
-                          label: const Text(
-                            'Phone numbers',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            // Change the default border color
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: const BorderSide(
-                                color: Colors.white,
-                                width: 2), // Change color and width
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextField(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          keyboardType: TextInputType.phone,
+                          controller: _phonenumsController,
+                          decoration: InputDecoration(
+                            hintText: 'Edit your phone numbers',
+                            hintStyle: const TextStyle(color: Colors.white),
+                            //icon: const Icon(Icons.account_circle_outlined),
+                            label: const Text(
+                              'Phone numbers',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              // Change the default border color
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: const BorderSide(
+                                  color: Colors.white,
+                                  width: 2), // Change color and width
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextField(
-                        controller: _mailController,
-                        enabled: false,
-                        decoration: InputDecoration(
-                          hintText: 'Edit your phone numbers',
-                          hintStyle: const TextStyle(color: Colors.white),
-                          //icon: const Icon(Icons.account_circle_outlined),
-                          label: const Text(
-                            'Email',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          disabledBorder: OutlineInputBorder(
-                            // Change the default border color
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: const BorderSide(
-                                color: Colors.white,
-                                width: 2), // Change color and width
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextField(
+                          controller: _mailController,
+                          enabled: false,
+                          decoration: InputDecoration(
+                            hintText: 'Edit your phone numbers',
+                            hintStyle: const TextStyle(color: Colors.white),
+                            //icon: const Icon(Icons.account_circle_outlined),
+                            label: const Text(
+                              'Email',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                              // Change the default border color
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: const BorderSide(
+                                  color: Colors.white,
+                                  width: 2), // Change color and width
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Text(
-                        'Genders:',
-                        style: TextStyle(fontSize: 20, color: Colors.white),
-                      ),
-                      // const SizedBox(
-                      //   height: 20,
-                      // ),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Row(
-                            children: [
-                              Radio(
-                                  activeColor:
-                                      const Color.fromARGB(255, 0, 66, 180),
-                                  value: 1,
-                                  groupValue: valueGender,
-                                  onChanged: (Value) {
-                                    setState(() {
-                                      valueGender = Value!;
-                                    });
-                                  }),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              const Text(
-                                'Male',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              )
-                            ],
-                          )),
-                          Expanded(
-                              child: Row(
-                            children: [
-                              Radio(
-                                  activeColor: Colors.redAccent,
-                                  value: 2,
-                                  groupValue: valueGender,
-                                  onChanged: (Value) {
-                                    setState(() {
-                                      valueGender = Value!;
-                                    });
-                                  }),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              const Text(
-                                'Female',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              )
-                            ],
-                          )),
-                          Expanded(
-                              child: Row(
-                            children: [
-                              Radio(
-                                  activeColor: Colors.white,
-                                  value: 3,
-                                  groupValue: valueGender,
-                                  onChanged: (Value) {
-                                    setState(() {
-                                      valueGender = Value!;
-                                    });
-                                  }),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              const Text(
-                                'Others',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              )
-                            ],
-                          )),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                foregroundColor: AppColor.mainColor),
-                            onPressed: () async {
-                              if (_fullnameController!.text.isEmpty ||
-                                  _phonenumsController!.text.isEmpty) {
-                                print('Exist empty information field');
-                              } else {
-                                String linkAvatar = accountController
-                                    .accountInformation!.avatarUrl;
-
-                                if (imageFile != null) {
-                                  final linkUploadedAvatar =
-                                      await updateAccountController
-                                          .onUploadAvatar(imageFile);
-                                  linkAvatar = linkUploadedAvatar;
-                                } else {
-                                  print('image file null');
-                                }
-
-                                String gender = setGenderValue();
-                                AccountInformation updateAcc =
-                                    AccountInformation(
-                                        fullName: _fullnameController!.text,
-                                        gender: gender,
-                                        mail: _mailController!.text,
-                                        phoneNumbers:
-                                            _phonenumsController!.text,
-                                        avatarUrl: linkAvatar);
-
-                                updateAccountController.onUpdateAcc(updateAcc);
-                              }
-                            },
-                            child: const Text(
-                              'Update',
-                              style: TextStyle(fontSize: 20),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const Text(
+                          'Genders:',
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
+                        // const SizedBox(
+                        //   height: 20,
+                        // ),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: Row(
+                              children: [
+                                Radio(
+                                    activeColor:
+                                        const Color.fromARGB(255, 0, 66, 180),
+                                    value: 1,
+                                    groupValue: valueGender,
+                                    onChanged: (Value) {
+                                      setState(() {
+                                        valueGender = Value!;
+                                      });
+                                    }),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                const Text(
+                                  'Male',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                )
+                              ],
                             )),
-                      ),
-                      Expanded(
-                          child: isClickAvatar == true
-                              ? Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      padding:
-                                          EdgeInsets.only(left: 10, right: 10),
-                                      width: double.infinity,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.vertical(
-                                              top: Radius.circular(40))),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Expanded(
-                                              child: OutlinedButton(
-                                                  onPressed: () async {
-                                                    String? pickedImagePath =
-                                                        await UpdateAccountController()
-                                                            .pickAvatar(false);
-                                                    if (pickedImagePath !=
-                                                        null) {
-                                                      setState(() {
-                                                        imageFile = File(
-                                                            pickedImagePath);
-                                                      });
-                                                    }
-                                                  },
-                                                  style:
-                                                      OutlinedButton.styleFrom(
-                                                          // backgroundColor:
-                                                          //     AppColor.mainColor,
-                                                          foregroundColor:
-                                                              AppColor
-                                                                  .mainColor,
-                                                          side: BorderSide(
-                                                              color: AppColor
-                                                                  .mainColor)),
-                                                  child: const Text(
-                                                    'Camera',
-                                                    style: TextStyle(
-                                                        fontFamily:
-                                                            'Roboto bold',
-                                                        fontSize: 18),
-                                                  ))),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Expanded(
-                                              child: OutlinedButton(
-                                                  onPressed: () async {
-                                                    String? pickedImagePath =
-                                                        await UpdateAccountController()
-                                                            .pickAvatar(true);
-                                                    if (pickedImagePath !=
-                                                        null) {
-                                                      setState(() {
-                                                        imageFile = File(
-                                                            pickedImagePath);
-                                                      });
-                                                    }
-                                                  },
-                                                  style:
-                                                      OutlinedButton.styleFrom(
-                                                    foregroundColor:
-                                                        AppColor.mainColor,
-                                                    side: BorderSide(
-                                                        color:
-                                                            AppColor.mainColor),
-                                                  ),
-                                                  child: const Text(
-                                                    'Gallery',
-                                                    style: TextStyle(
-                                                        fontFamily:
-                                                            'Roboto bold',
-                                                        fontSize: 18),
-                                                  )))
-                                        ],
+                            Expanded(
+                                child: Row(
+                              children: [
+                                Radio(
+                                    activeColor: Colors.redAccent,
+                                    value: 2,
+                                    groupValue: valueGender,
+                                    onChanged: (Value) {
+                                      setState(() {
+                                        valueGender = Value!;
+                                      });
+                                    }),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                const Text(
+                                  'Female',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                )
+                              ],
+                            )),
+                            Expanded(
+                                child: Row(
+                              children: [
+                                Radio(
+                                    activeColor: Colors.white,
+                                    value: 3,
+                                    groupValue: valueGender,
+                                    onChanged: (Value) {
+                                      setState(() {
+                                        valueGender = Value!;
+                                      });
+                                    }),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                const Text(
+                                  'Others',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                )
+                              ],
+                            )),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  foregroundColor: AppColor.mainColor),
+                              onPressed: () async {
+                                if (_fullnameController!.text.isEmpty ||
+                                    _phonenumsController!.text.isEmpty) {
+                                  print('Exist empty information field');
+                                } else {
+                                  String linkAvatar = accountController
+                                      .accountInformation!.avatarUrl;
+
+                                  if (imageFile != null) {
+                                    final linkUploadedAvatar =
+                                        await updateAccountController
+                                            .onUploadAvatar(imageFile);
+                                    linkAvatar = linkUploadedAvatar;
+                                  } else {
+                                    print('image file null');
+                                  }
+
+                                  String gender = setGenderValue();
+                                  AccountInformation updateAcc =
+                                      AccountInformation(
+                                          fullName: _fullnameController!.text,
+                                          gender: gender,
+                                          mail: _mailController!.text,
+                                          phoneNumbers:
+                                              _phonenumsController!.text,
+                                          avatarUrl: linkAvatar);
+
+                                  updateAccountController
+                                      .onUpdateAcc(updateAcc);
+                                }
+                              },
+                              child: const Text(
+                                'Update',
+                                style: TextStyle(fontSize: 20),
+                              )),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        SizedBox(
+                            child: isClickAvatar == true
+                                ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        width: double.infinity,
+                                        height: 100,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(40))),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                                child: OutlinedButton(
+                                                    onPressed: () async {
+                                                      String? pickedImagePath =
+                                                          await UpdateAccountController()
+                                                              .pickAvatar(
+                                                                  false);
+                                                      if (pickedImagePath !=
+                                                          null) {
+                                                        setState(() {
+                                                          imageFile = File(
+                                                              pickedImagePath);
+                                                        });
+                                                      }
+                                                    },
+                                                    style: OutlinedButton
+                                                        .styleFrom(
+                                                            // backgroundColor:
+                                                            //     AppColor.mainColor,
+                                                            foregroundColor:
+                                                                AppColor
+                                                                    .mainColor,
+                                                            side: BorderSide(
+                                                                color: AppColor
+                                                                    .mainColor)),
+                                                    child: const Text(
+                                                      'Camera',
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              'Roboto bold',
+                                                          fontSize: 18),
+                                                    ))),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Expanded(
+                                                child: OutlinedButton(
+                                                    onPressed: () async {
+                                                      String? pickedImagePath =
+                                                          await UpdateAccountController()
+                                                              .pickAvatar(true);
+                                                      if (pickedImagePath !=
+                                                          null) {
+                                                        setState(() {
+                                                          imageFile = File(
+                                                              pickedImagePath);
+                                                        });
+                                                      }
+                                                    },
+                                                    style: OutlinedButton
+                                                        .styleFrom(
+                                                      foregroundColor:
+                                                          AppColor.mainColor,
+                                                      side: BorderSide(
+                                                          color: AppColor
+                                                              .mainColor),
+                                                    ),
+                                                    child: const Text(
+                                                      'Gallery',
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              'Roboto bold',
+                                                          fontSize: 18),
+                                                    )))
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ).animate().slideY(duration: 1000.ms, begin: 5)
-                              : const SizedBox()),
-                    ],
+                                    ],
+                                  )
+                                    .animate()
+                                    .slideY(duration: 1000.ms, begin: 5)
+                                : const SizedBox()),
+                      ],
+                    ),
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
+      //),
     ));
   }
 

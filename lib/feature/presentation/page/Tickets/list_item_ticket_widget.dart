@@ -1,13 +1,16 @@
 import 'package:booking_transition_flutter/core/utils/colors.dart';
+import 'package:booking_transition_flutter/feature/controller/detailticket_controller.dart';
 import 'package:booking_transition_flutter/feature/presentation/page/Tickets/list_item_ticket.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ListItemTicketWidget extends StatelessWidget {
   final ListItemTicket item;
+  final _detailTicketController = Get.find<DetailTicketController>();
 
-  const ListItemTicketWidget({super.key, required this.item});
+  ListItemTicketWidget({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +65,14 @@ class ListItemTicketWidget extends StatelessWidget {
                           Icons.info_outline_rounded,
                           color: Colors.white,
                         ),
+                        const SizedBox(
+                          width: 5,
+                        ),
                         Expanded(
                           child: Text(
                             item.nameTicket,
                             style: const TextStyle(
-                                fontSize: 17,
+                                fontSize: 20,
                                 color: Colors.white,
                                 fontFamily: 'Roboto bold'),
                             maxLines: 2, // Set the maximum number of lines
@@ -86,9 +92,13 @@ class ListItemTicketWidget extends StatelessWidget {
                           Icons.directions_bus_rounded,
                           color: Color.fromARGB(255, 0, 66, 180),
                         ),
+                        const SizedBox(
+                          width: 5,
+                        ),
                         Text(
                           item.numberCar,
-                          style: const TextStyle(color: Colors.white),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 18),
                         ),
                         const SizedBox(
                           width: 5,
@@ -106,11 +116,14 @@ class ListItemTicketWidget extends StatelessWidget {
                             Icons.date_range_rounded,
                             color: Colors.yellowAccent,
                           ),
+                        // const SizedBox(
+                        //   width: 5,
+                        // ),
                         if (Get.currentRoute == '/MyTicket')
                           Text(
                             item.departureDate,
                             style: const TextStyle(
-                                fontSize: 13, color: Colors.white),
+                                fontSize: 16, color: Colors.white),
                           ),
                         if (Get.currentRoute == '/MyTicket')
                           const Text(
@@ -121,10 +134,13 @@ class ListItemTicketWidget extends StatelessWidget {
                           Icons.access_time_rounded,
                           color: Colors.redAccent,
                         ),
+                        const SizedBox(
+                          width: 5,
+                        ),
                         Text(
                           item.departureTime,
                           style: const TextStyle(
-                              fontSize: 13, color: Colors.white),
+                              fontSize: 16, color: Colors.white),
                         ),
                         const SizedBox(
                           width: 5,
@@ -141,9 +157,18 @@ class ListItemTicketWidget extends StatelessWidget {
                           Icons.money_rounded,
                           color: Colors.greenAccent,
                         ),
+                        const SizedBox(
+                          width: 5,
+                        ),
                         Text(
-                          item.pricesTicket,
-                          style: const TextStyle(color: Colors.white),
+                          // Get.currentRoute == '/MyTicket'
+                          //     ? '${NumberFormat.decimalPattern().format(_detailTicketController.ticket.pricesTotal).toString()} VND'
+                          //     :
+                          '${NumberFormat.decimalPattern().format(int.parse(item.pricesTicket)).toString()} VND',
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Roboto bold',
+                              fontSize: 18),
                         ),
                       ],
                     )

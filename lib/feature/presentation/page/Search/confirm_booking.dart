@@ -12,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:intl/intl.dart';
 
 import '../../../controller/choose_route_controller.dart';
 
@@ -233,7 +234,7 @@ class StateConfirmBooking extends State<ConfirmBooking> {
                           Text(
                             _chooseRouteController.item.departureTime,
                             style: const TextStyle(
-                                fontSize: 18,
+                                fontSize: 20,
                                 color: Colors.black,
                                 fontFamily: 'Roboto bold'),
                           ),
@@ -362,13 +363,18 @@ class StateConfirmBooking extends State<ConfirmBooking> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                              (int.parse(_chooseRouteController
+                              (NumberFormat.decimalPattern()
+                                  .format(int.parse(_chooseRouteController
                                           .item.pricesTicket) *
                                       StateChooseSeat.selectedSeats.length)
-                                  .toString(),
+                                  .toString()),
+                              // int.parse(_chooseRouteController
+                              //           .item.pricesTicket) *
+                              //       StateChooseSeat.selectedSeats.length)
+                              //   .toString(),
                               style: const TextStyle(
                                 fontFamily: 'Roboto bold',
-                                fontSize: 18,
+                                fontSize: 20,
                               )),
                           const SizedBox(
                             height: 5,
@@ -491,7 +497,7 @@ class StateConfirmBooking extends State<ConfirmBooking> {
                       ],
                     )),
                 Container(
-                  padding: EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

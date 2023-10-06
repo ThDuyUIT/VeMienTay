@@ -196,25 +196,22 @@ class StateLogin extends State<Login> {
                                   backgroundColor: AppColor.mainColor,
                                   foregroundColor: Colors.white),
                               onPressed: () async {
-                                // showDialog(
-                                //     context: context,
-                                //     builder: (context) {
-                                //       return Center(
-                                //         child: CircularProgressIndicator(
-                                //           color: AppColor.mainColor,
-                                //         ),
-                                //       );
-                                //     });
                                 FocusScope.of(context).unfocus();
                                 if (_nameEditingController.text.isEmpty) {
                                   _appSnackbar.buildSnackbar(
-                                      context, "Please, Enter your username!");
+                                      context,
+                                      "Please, Enter your username!",
+                                      Colors.white,
+                                      Colors.red);
                                   return;
                                 }
 
                                 if (_passwordEditingController.text.isEmpty) {
                                   _appSnackbar.buildSnackbar(
-                                      context, "Please, Enter your password!");
+                                      context,
+                                      "Please, Enter your password!",
+                                      Colors.white,
+                                      Colors.red);
                                   return;
                                 }
                                 await _loginController.onLogin(

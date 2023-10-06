@@ -61,11 +61,17 @@ class ResetPass extends StatelessWidget {
                     await FirebaseAuth.instance.sendPasswordResetEmail(
                         email: _emailEditingController.text);
                     _appSnackbar.buildSnackbar(
-                        context, 'Password reset link sent! Check your email');
+                        context,
+                        'Password reset link sent! Check your email',
+                        AppColor.mainColor,
+                        Colors.white);
                   } catch (e) {
                     String err = e.toString();
                     _appSnackbar.buildSnackbar(
-                        context, err.substring(err.indexOf(']') + 2));
+                        context,
+                        err.substring(err.indexOf(']') + 2),
+                        AppColor.mainColor,
+                        Colors.white);
                   }
                 },
                 child: const Text(

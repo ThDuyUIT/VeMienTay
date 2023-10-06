@@ -7,6 +7,7 @@ import 'package:booking_transition_flutter/feature/models/account_information.da
 import 'package:booking_transition_flutter/feature/presentation/page/Authentication/verify.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class Register extends StatefulWidget {
@@ -133,6 +134,10 @@ class StateRegister extends State<Register> {
                         height: 20,
                       ),
                       TextField(
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        keyboardType: TextInputType.phone,
                         controller: _phoneNumsEditingController,
                         decoration: InputDecoration(
                           hintText: 'Enter your phone numbers',
@@ -246,32 +251,47 @@ class StateRegister extends State<Register> {
                               String verifyPass = _verifyEditingController.text;
 
                               if (_fullnameEditingController.text.isEmpty) {
-                                _appSnackbar.buildSnackbar(context,
-                                    "Please, Fill in full name field!");
+                                _appSnackbar.buildSnackbar(
+                                    context,
+                                    "Please, Fill in full name field!",
+                                    Colors.white,
+                                    Colors.red);
                                 return;
                               }
 
                               if (_phoneNumsEditingController.text.isEmpty) {
                                 _appSnackbar.buildSnackbar(
-                                    context, "Please, Fill in phone field!");
+                                    context,
+                                    "Please, Fill in phone field!",
+                                    Colors.white,
+                                    Colors.red);
                                 return;
                               }
 
                               if (_usernameEditingController.text.isEmpty) {
                                 _appSnackbar.buildSnackbar(
-                                    context, "Please, Fill in username field!");
+                                    context,
+                                    "Please, Fill in username field!",
+                                    Colors.white,
+                                    Colors.red);
                                 return;
                               }
 
                               if (_passwordEditingController.text.isEmpty) {
                                 _appSnackbar.buildSnackbar(
-                                    context, "Please, Fill in password field!");
+                                    context,
+                                    "Please, Fill in password field!",
+                                    Colors.white,
+                                    Colors.red);
                                 return;
                               }
 
                               if (_verifyEditingController.text.isEmpty) {
                                 _appSnackbar.buildSnackbar(
-                                    context, "Please, Fill in verify field!");
+                                    context,
+                                    "Please, Fill in verify field!",
+                                    Colors.white,
+                                    Colors.red);
                                 return;
                               }
 

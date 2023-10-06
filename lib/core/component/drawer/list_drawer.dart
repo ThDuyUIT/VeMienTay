@@ -3,65 +3,12 @@ import 'package:booking_transition_flutter/feature/presentation/page/Account/mya
 import 'package:booking_transition_flutter/feature/presentation/page/Authentication/login.dart';
 import 'package:booking_transition_flutter/feature/presentation/page/Search/choose_seat.dart';
 import 'package:booking_transition_flutter/feature/presentation/page/Search/search.dart';
-import 'package:booking_transition_flutter/feature/routes/app_routes.dart';
+import 'package:booking_transition_flutter/feature/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../../feature/presentation/page/Tickets/myticket.dart';
-
-// class ListDrawer extends StatelessWidget {
-//   @override
-//   Widget build(Object context) {
-//     return Container(
-//       padding: EdgeInsets.only(top: 15),
-//       child: const Column(children: [
-//         Row(
-//           children: [
-//             Expanded(flex: 1, child: Icon(Icons.search, size: 20)),
-//             Expanded(
-//               flex: 3,
-//               child: Text(
-//                 'Search',
-//                 style: TextStyle(color: Colors.black, fontSize: 20),
-//               ),
-//             )
-//           ],
-//         ),
-//         SizedBox(
-//           height: 10,
-//         ),
-//         Row(
-//           children: [
-//             Expanded(flex: 1, child: Icon(Icons.receipt, size: 20)),
-//             Expanded(
-//               flex: 3,
-//               child: Text(
-//                 'My Ticket',
-//                 style: TextStyle(color: Colors.black, fontSize: 20),
-//               ),
-//             )
-//           ],
-//         ),
-//         SizedBox(
-//           height: 10,
-//         ),
-//         Row(
-//           children: [
-//             Expanded(flex: 1, child: Icon(Icons.account_circle, size: 20)),
-//             Expanded(
-//               flex: 3,
-//               child: Text(
-//                 'My Account',
-//                 style: TextStyle(color: Colors.black, fontSize: 20),
-//               ),
-//             )
-//           ],
-//         )
-//       ]),
-//     );
-//   }
-// }
 
 class ListDrawer extends StatelessWidget {
   @override
@@ -101,8 +48,6 @@ class ListDrawer extends StatelessWidget {
   Widget ItemDrawer({
     required String text,
     required IconData icon,
-    // required Color textIconColor,
-    // required Color? tileColor,
     required VoidCallback onTap,
   }) {
     return ListTile(
@@ -119,16 +64,6 @@ class ListDrawer extends StatelessWidget {
   }
 
   navigate(int index) {
-    // print(index);
-    // if (index == 0) {
-    //   Get.offAllNamed(Routes.SEARCH);
-    // } else if (index == 1) {
-    //   Get.off(MyTicket());
-    // }
-    // if (index == 2) {
-    //   Get.to(Routes.MYACCOUNT);
-    // }
-
     if (index == 0) {
       Get.off(Search());
     } else if (index == 1) {

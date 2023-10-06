@@ -1,3 +1,4 @@
+import 'package:booking_transition_flutter/core/component/snackbar.dart';
 import 'package:booking_transition_flutter/feature/presentation/page/Search/seat_item.dart';
 import 'package:booking_transition_flutter/feature/presentation/page/Search/seat_item_widget.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class List29Seats extends StatefulWidget {
 }
 
 class StateList29Seats extends State<List29Seats> {
+  final _appSnackbar = AppSnackbar();
   static List<String> selectedindex = [];
   static late List<SeatItem> bookedSeat;
 
@@ -55,7 +57,7 @@ class StateList29Seats extends State<List29Seats> {
 
   void selectedSeat(int i) {
     setState(() {
-      if (seats[i].color == Colors.white) {
+      if (seats[i].color == Colors.white && selectedindex.length < 5) {
         seats[i].color = Colors.greenAccent;
         selectedindex.add(seats[i].index.toString());
         //StateChooseSeat.selectedindex.add(seats[i].index.toString());
@@ -63,6 +65,13 @@ class StateList29Seats extends State<List29Seats> {
         seats[i].color = Colors.white;
         selectedindex.remove(seats[i].index.toString());
         //StateChooseSeat.selectedindex.remove(seats[i].index.toString());
+        if (selectedindex.length >= 5) {
+          _appSnackbar.buildSnackbar(
+              context,
+              "Maximum booked seats are 5 seats!",
+              Colors.white,
+              AppColor.mainColor);
+        }
       }
     });
 

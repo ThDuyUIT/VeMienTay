@@ -105,34 +105,61 @@ class GetDataService {
       for (var entry in routesData.entries) {
         var keyRoute = entry.key;
         var valueRoute = entry.value;
-
+        int hours = DateTime.now().hour;
+        int minutes = DateTime.now().minute;
+        //print(hours + ':' + minutes);
         if (StateFindRoute.startCity!.idCity == valueRoute['startpoint'] &&
             StateFindRoute.endCity!.idCity == valueRoute['endpoint'] &&
             StateFindRoute.departureDate == valueRoute['departuredate']) {
-          DatabaseReference vehicleRef =
-              FirebaseDatabase.instance.ref().child('XE');
-          DatabaseEvent vehicleEvent = await vehicleRef.once();
+          var dateParts = valueRoute['departuredate'].toString().split('/');
+          int day = int.parse(dateParts[0]);
+          int month = int.parse(dateParts[1]);
+          int year = int.parse(dateParts[2]);
 
-          if (vehicleEvent.snapshot.value != null) {
-            Map<dynamic, dynamic> vehicleData =
-                vehicleEvent.snapshot.value as Map<dynamic, dynamic>;
+          String departureTime = valueRoute['departuretime'];
+          int hour =
+              int.parse(departureTime.substring(0, departureTime.indexOf(':')));
+          int minute = int.parse(
+              departureTime.substring(departureTime.indexOf(':') + 1));
 
-            for (var vehicleEntry in vehicleData.entries) {
-              var keyVehicle = vehicleEntry.key;
-              var valueVehicle = vehicleEntry.value;
+          var dateTime = DateTime(year, month, day, hour, minute);
+          var milisecond = dateTime.millisecondsSinceEpoch;
+          if (milisecond > DateTime.now().millisecondsSinceEpoch
+              // hours <
+              //       int.parse(
+              //           departureTime.substring(0, departureTime.indexOf(':'))) ||
+              //   (hours ==
+              //           int.parse(departureTime.substring(
+              //               0, departureTime.indexOf(':'))) &&
+              //       minutes <=
+              //           int.parse(departureTime
+              //               .substring(departureTime.indexOf(':') + 1)))
+              ) {
+            DatabaseReference vehicleRef =
+                FirebaseDatabase.instance.ref().child('XE');
+            DatabaseEvent vehicleEvent = await vehicleRef.once();
 
-              if (valueRoute['idvehicle'] == keyVehicle) {
-                ListItemTicket itemTicket = ListItemTicket(
-                    nameTicket: valueVehicle['namevehicle'],
-                    departureDate: valueRoute['departuredate'],
-                    departureTime: valueRoute['departuretime'],
-                    pricesTicket: valueRoute['priceticket'],
-                    imageVehicle: valueVehicle['imgvehicle'],
-                    numberCar: keyVehicle,
-                    idRoute: keyRoute,
-                    capacity: valueVehicle['capacity']);
+            if (vehicleEvent.snapshot.value != null) {
+              Map<dynamic, dynamic> vehicleData =
+                  vehicleEvent.snapshot.value as Map<dynamic, dynamic>;
 
-                routes.add(itemTicket);
+              for (var vehicleEntry in vehicleData.entries) {
+                var keyVehicle = vehicleEntry.key;
+                var valueVehicle = vehicleEntry.value;
+
+                if (valueRoute['idvehicle'] == keyVehicle) {
+                  ListItemTicket itemTicket = ListItemTicket(
+                      nameTicket: valueVehicle['namevehicle'],
+                      departureDate: valueRoute['departuredate'],
+                      departureTime: valueRoute['departuretime'],
+                      pricesTicket: valueRoute['priceticket'],
+                      imageVehicle: valueVehicle['imgvehicle'],
+                      numberCar: keyVehicle,
+                      idRoute: keyRoute,
+                      capacity: valueVehicle['capacity']);
+
+                  routes.add(itemTicket);
+                }
               }
             }
           }
@@ -151,7 +178,7 @@ class GetDataService {
     DatabaseEvent event = await keyTicketRef.once();
     DataSnapshot snapshot = event.snapshot;
 
-    if (snapshot != null) {
+    if (snapshot.value != null) {
       Map<dynamic, dynamic> ticketData =
           snapshot.value as Map<dynamic, dynamic>;
       ticket = Ticket(
@@ -263,7 +290,7 @@ class GetDataService {
                           nameTicket: valueVehicle['namevehicle'],
                           departureDate: valueRoute['departuredate'],
                           departureTime: valueRoute['departuretime'],
-                          pricesTicket: valueRoute['priceticket'],
+                          pricesTicket: valueTicket['pricestotal'],
                           imageVehicle: valueVehicle['imgvehicle'],
                           numberCar: keyVehicle,
                           idRoute: keyRoute,
